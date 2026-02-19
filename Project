@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Cyber Security Tool</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI;
+background:linear-gradient(135deg,#000,#1a1a1a);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+width:420px;
+background:#111;
+padding:25px;
+border-radius:18px;
+box-shadow:0 0 25px rgba(255,255,255,0.15);
+animation:fade 1.2s ease;
+overflow-y:auto;
+max-height:95vh;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(20px)}
+to{opacity:1; transform:translateY(0)}
+}
+
+h2{text-align:center;margin-bottom:10px}
+
+input{
+width:100%;
+padding:12px;
+border:none;
+outline:none;
+border-radius:8px;
+background:#222;
+color:white;
+font-size:16px;
+margin-top:10px;
+}
+
+button{
+width:100%;
+margin-top:12px;
+padding:10px;
+border:none;
+border-radius:8px;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+button:hover{background:#ccc}
+
+.strength{
+height:12px;
+background:#333;
+border-radius:10px;
+margin-top:15px;
+}
+
+.bar{
+height:100%;
+width:0;
+border-radius:10px;
+transition:.4s;
+}
+
+#text{margin-top:10px;font-size:14px}
+#tips{margin-top:10px;font-size:13px;color:#bbb}
+
+.toggle{
+margin-top:8px;
+font-size:13px;
+cursor:pointer;
+color:#aaa;
+}
+
+.section{
+margin-top:18px;
+background:black;
+padding:14px;
+border-radius:12px;
+border-left:4px solid white;
+font-size:14px;
+line-height:1.5;
+}
+
+.footer{
+text-align:center;
+margin-top:12px;
+font-size:12px;
+color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>🔐 Cyber Password Tool</h2>
+
+<input type="password" id="pass" placeholder="Enter password" oninput="check()">
+
+<div class="toggle" onclick="toggle()">👁 Show / Hide Password</div>
+
+<div class="strength"><div class="bar" id="bar"></div></div>
+
+<div id="text"></div>
+<div id="tips"></div>
+
+<button onclick="generate()">Generate Strong Password</button>
+
+<!-- Cyber Security Info -->
+<div class="section">
+<b>What is Cyber Security?</b><br>
+Cyber security is the practice of protecting systems, networks, and data from digital attacks, hackers, and unauthorized access.
+
+<br><br>
+<b>Why It Is Important?</b>
+<ul>
+<li>Protects personal data</li>
+<li>Prevents hacking</li>
+<li>Secures bank accounts</li>
+<li>Stops identity theft</li>
+</ul>
+
+<b>Common Cyber Attacks:</b>
+<ul>
+<li>Phishing</li>
+<li>Malware</li>
+<li>Ransomware</li>
+<li>Password attacks</li>
+</ul>
+</div>
+
+<div class="footer">Secure Mind • Secure Life</div>
+</div>
+
+<script>
+function check(){
+let p=document.getElementById("pass").value;
+let bar=document.getElementById("bar");
+let text=document.getElementById("text");
+let tips=document.getElementById("tips");
+
+let s=0;
+let t=[];
+
+if(p.length>=8)s++; else t.push("Minimum 8 characters");
+if(/[A-Z]/.test(p))s++; else t.push("Add uppercase letter");
+if(/[0-9]/.test(p))s++; else t.push("Include number");
+if(/[!@#$%^&*]/.test(p))s++; else t.push("Add symbol");
+
+let width=["0%","25%","50%","75%","100%"];
+let color=["","red","orange","yellow","lime"];
+let label=["","Weak ❌","Medium ⚠","Good 👍","Strong 🔐"];
+
+bar.style.width=width[s];
+bar.style.background=color[s];
+text.innerHTML=label[s];
+
+if(s<4) tips.innerHTML="Suggestions:<br>"+t.join("<br>");
+else tips.innerHTML="Estimated crack time: 200+ years 🚀";
+}
+
+function toggle(){
+let x=document.getElementById("pass");
+x.type=(x.type==="password")?"text":"password";
+}
+
+function generate(){
+let chars="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+let pass="";
+for(let i=0;i<14;i++)
+pass+=chars[Math.floor(Math.random()*chars.length)];
+document.getElementById("pass").value=pass;
+check();
+}
+</script>
+
+</body>
+</html>
